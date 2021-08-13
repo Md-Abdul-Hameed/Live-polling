@@ -5,6 +5,7 @@ export default function Polling(props) {
 	const [question, setQuestion] = useState("");
 	const [options, setOptions] = useState([]);
 	const [selectedOption, setSelectedOption] = useState();
+	const [disable, setDisable] = useState(true);
 
 	const {
 		match: {
@@ -15,14 +16,20 @@ export default function Polling(props) {
 	const handlePollSubmit = async () => {
 		let pollRef = await database.polls.doc(id).get();
 		let pollData = pollRef.data();
-		let votesToEachOption = pollData.votesToEachOption
-        let totalVotes = pollData.totalVotes
-        votesToEachOption[selectedOption]+=1
-        totalVotes++;
-        await database.polls.doc(id).update({
-            votesToEachOption,
-            totalVotes
-        })
+		let votesToEachOption = pollData.votesToEachOption;
+		let totalVotes = pollData.totalVotes;
+		votesToEachOption[selectedOption].votes += 1;
+		totalVotes++;
+		await database.polls.doc(id).update({
+			votesToEachOption,
+			totalVotes,
+		});
+		let existing = localStorage.getItem("votes");
+		let oldVotesArr = existing ? JSON.parse(existing) : [];
+		oldVotesArr.push({ pollID: id, optionIdx: selectedOption });
+		localStorage.setItem("votes", JSON.stringify(oldVotesArr));
+		props.history.push(`/poll/result/${id}`);
+		console.log(oldVotesArr);
 	};
 	useEffect(() => {
 		(async () => {
@@ -33,6 +40,17 @@ export default function Polling(props) {
 		})();
 	}, []);
 
+	useEffect(() => {
+		let existing = localStorage.getItem("votes");
+		let oldVotes = existing ? JSON.parse(existing) : null;
+		if (oldVotes !== null) {
+			oldVotes.forEach((voteObj) => {
+				if (voteObj.pollID === id) {
+					props.history.push(`/poll/result/${id}`);
+				}
+			});
+		}
+	});
 	return (
 		<>
 			<h1>{question}</h1>
@@ -47,6 +65,7 @@ export default function Polling(props) {
 								value={option}
 								onChange={(e) => {
 									setSelectedOption(e.currentTarget.id);
+									setDisable(false);
 								}}
 							/>
 							<label htmlFor="option">{option}</label>
@@ -54,7 +73,9 @@ export default function Polling(props) {
 					);
 				})}
 			</div>
-			<button onClick={handlePollSubmit}>Submit</button>
+			<button onClick={handlePollSubmit} disabled={disable}>
+				Submit
+			</button>
 		</>
 	);
 }
