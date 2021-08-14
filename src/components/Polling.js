@@ -29,7 +29,6 @@ export default function Polling(props) {
 		oldVotesArr.push({ pollID: id, optionIdx: selectedOption });
 		localStorage.setItem("votes", JSON.stringify(oldVotesArr));
 		props.history.push(`/poll/result/${id}`);
-		console.log(oldVotesArr);
 	};
 	useEffect(() => {
 		(async () => {

@@ -12,7 +12,6 @@ export default function PollResult(props) {
 			params: { id },
 		},
 	} = props;
-	console.log(id);
 
 	useEffect(() => {
 		database.polls.doc(id).onSnapshot((doc) => {
@@ -20,11 +19,10 @@ export default function PollResult(props) {
 			setTotalVotes(data.totalVotes);
 			setQuestion(data.question);
 			setOptions(data.options);
-            let sortedArr = data.votesToEachOption.sort((a,b)=>{
-                return b.votes - a.votes 
-            })
+			let sortedArr = data.votesToEachOption.sort((a, b) => {
+				return b.votes - a.votes;
+			});
 			setEachOptionVotes(sortedArr);
-			console.log(totalVotes);
 		});
 	}, []);
 	return (

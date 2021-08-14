@@ -7,10 +7,10 @@ export default function CreatePoll(props) {
 
 	const handleCreate = async () => {
 		const optionAndVotesArr = options.map((option) => {
-			return { 
-                optionName : option,
-                votes : 0
-             };
+			return {
+				optionName: option,
+				votes: 0,
+			};
 		});
 		let poll = {
 			question,
