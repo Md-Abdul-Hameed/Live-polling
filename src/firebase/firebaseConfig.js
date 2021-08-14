@@ -1,7 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
 
-const object = require("./secrets");
+const object = require("../secrets");
 firebase.initializeApp(object);
 
 export const db = firebase.firestore();
