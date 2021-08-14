@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { database } from "../firebase/firebaseConfig";
+import Footer from "./Footer";
+import Header from "./Header";
 
 export default function CreatePoll(props) {
 	const [question, setQuestion] = useState("");
@@ -42,7 +44,7 @@ export default function CreatePoll(props) {
 		let tempOptions = [...options];
 		let UpdatedOptions = [];
 		for (let i = 0; i < tempOptions.length; i++) {
-			if (i != idx) {
+			if (i !== idx) {
 				UpdatedOptions.push(tempOptions[i]);
 			}
 		}
@@ -50,31 +52,35 @@ export default function CreatePoll(props) {
 	};
 
 	return (
-		<div>
-			<input
-				placeholder="question"
-				onChange={(e) => setQuestion(e.target.value)}
-			></input>
-			{options.map((option, idx) => {
-				return (
-					<div key={idx} id={idx}>
-						<input
-							placeholder="option"
-							value={option}
-							onChange={(e) => {
-								let tempArr = [...options];
-								tempArr[idx] = e.target.value;
-								setOptions(tempArr);
-							}}
-						></input>
-						{options.length > 2 ? (
-							<button onClick={handleDelete}>delete</button>
-						) : null}
-					</div>
-				);
-			})}
-			<button onClick={handleAddOption}>Add Option</button>
-			<button onClick={handleCreate}>Create</button>
-		</div>
+		<>
+			<Header />
+			<div>
+				<input
+					placeholder="question"
+					onChange={(e) => setQuestion(e.target.value)}
+				></input>
+				{options.map((option, idx) => {
+					return (
+						<div key={idx} id={idx}>
+							<input
+								placeholder="option"
+								value={option}
+								onChange={(e) => {
+									let tempArr = [...options];
+									tempArr[idx] = e.target.value;
+									setOptions(tempArr);
+								}}
+							></input>
+							{options.length > 2 ? (
+								<button onClick={handleDelete}>delete</button>
+							) : null}
+						</div>
+					);
+				})}
+				<button onClick={handleAddOption}>Add Option</button>
+				<button onClick={handleCreate}>Create</button>
+			</div>
+			<Footer />
+		</>
 	);
 }
