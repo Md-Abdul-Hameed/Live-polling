@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { database } from "../firebase/firebaseConfig";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -6,6 +7,7 @@ import Header from "./Header";
 export default function CreatePoll(props) {
 	const [question, setQuestion] = useState("");
 	const [options, setOptions] = useState(["", ""]);
+	const [disable, setDisable] = useState(true);
 
 	const handleCreate = async () => {
 		const optionAndVotesArr = options.map((option) => {
@@ -51,6 +53,21 @@ export default function CreatePoll(props) {
 		setOptions(UpdatedOptions);
 	};
 
+	useEffect(() => {
+		if (question !== "") {
+			setDisable(false);
+		} else {
+			setDisable(true);
+		}
+		for (let i = 0; i < options.length; i++) {
+			if (options[i] === "") {
+				setDisable(true);
+				break;
+			} else {
+				setDisable(false);
+			}
+		}
+	}, [question, options]);
 	return (
 		<>
 			<Header />
@@ -78,7 +95,9 @@ export default function CreatePoll(props) {
 					);
 				})}
 				<button onClick={handleAddOption}>Add Option</button>
-				<button onClick={handleCreate}>Create</button>
+				<button onClick={handleCreate} disabled={disable}>
+					Create
+				</button>
 			</div>
 			<Footer />
 		</>

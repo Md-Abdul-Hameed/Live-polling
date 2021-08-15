@@ -1,10 +1,10 @@
-import React from 'react'
+import React from "react";
 
 export default function Header() {
-    return (
-        <div>
-            <h2>Live Poll</h2>
-            <p>Create Fast anonymous polls for free</p>
-        </div>
-    )
+	return (
+		<div className="header">
+			<h1 className="title"><i class="fas fa-bolt"></i>Live Poll</h1>
+			<p className="tagline">Create fast anonymous polls for free</p>
+		</div>
+	);
 }
