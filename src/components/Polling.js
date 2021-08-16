@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { database } from "../firebase/firebaseConfig";
+import Footer from "./Footer";
+import Header from "./Header";
 
 export default function Polling(props) {
 	const [question, setQuestion] = useState("");
@@ -29,7 +31,6 @@ export default function Polling(props) {
 		oldVotesArr.push({ pollID: id, optionIdx: selectedOption });
 		localStorage.setItem("votes", JSON.stringify(oldVotesArr));
 		props.history.push(`/poll/result/${id}`);
-		console.log(oldVotesArr);
 	};
 	useEffect(() => {
 		(async () => {
@@ -53,6 +54,7 @@ export default function Polling(props) {
 	});
 	return (
 		<>
+			<Header />
 			<h1>{question}</h1>
 			<div>
 				{options.map((option, id) => {
@@ -76,6 +78,7 @@ export default function Polling(props) {
 			<button onClick={handlePollSubmit} disabled={disable}>
 				Submit
 			</button>
+			<Footer />
 		</>
 	);
 }
