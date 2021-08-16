@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { database } from "../firebase/firebaseConfig";
 import { Button, Container, Fab, TextField } from "@material-ui/core";
+import { Skeleton } from "@material-ui/lab";
 import AddIcon from "@material-ui/icons/Add";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import Footer from "./Footer";
@@ -45,8 +46,10 @@ export default function CreatePoll(props) {
 	const [question, setQuestion] = useState("");
 	const [options, setOptions] = useState(["", ""]);
 	const [disable, setDisable] = useState(true);
+	const [loading, setLoading] = useState(true);
 
 	const handleCreate = async () => {
+		setDisable(true);
 		const optionAndVotesArr = options.map((option) => {
 			return {
 				optionName: option,
@@ -68,6 +71,7 @@ export default function CreatePoll(props) {
 			oldPollIds.push(pollId);
 			console.log(oldPollIds);
 			localStorage.setItem("pollIds", JSON.stringify(oldPollIds));
+			setDisable(false);
 			props.history.push(`/poll/${pollId}`);
 		} catch (err) {
 			console.log("Error :", err);
@@ -108,80 +112,104 @@ export default function CreatePoll(props) {
 		}
 	}, [question, options]);
 
+	setTimeout(() => {
+		setLoading(false);
+	}, 3000);
+
 	const classes = useStyles();
 	return (
 		<>
-			<Header />
-			<Container maxWidth="sm" className={classes.maxWidthSm}>
-				<div>
-					<h1>Create Poll</h1>
-					<p className={classes.text}>Complete below fields to create a poll</p>
-				</div>
-				<div>
-					<TextField
-						className={classes.questionInput}
-						id="outlined-multiline-static"
-						label="Poll question"
-						placeholder="What's your favorite movie?"
-						multiline
-						rows={4}
-						variant="outlined"
-						onChange={(e) => setQuestion(e.target.value)}
-					/>
-					{options.map((option, idx) => {
-						return (
-							<div
-								key={idx}
-								id={idx}
-								style={{
-									display: "flex",
-									justifyContent: "center",
-									alignItems: "center",
-								}}
+			{loading ? (
+				<>
+					<Skeleton variant="rect" width="100%" height={250} marginTop="0px" />
+					<div style={{ maxWidth: "70%", margin: "0 auto" }}>
+						<Skeleton
+							height={50}
+							style={{ width: "300px", marginTop: "30px" }}
+						/>
+						<Skeleton height={30} style={{ width: "500px" }} />
+						<Skeleton height={150} style={{ margin: "0 auto" }} />
+						<Skeleton height={80} style={{ margin: "0 auto" }} />
+						<Skeleton height={80} style={{ margin: "0 auto" }} />
+					</div>
+				</>
+			) : (
+				<>
+					<Header />
+					<Container maxWidth="sm" className={classes.maxWidthSm}>
+						<div>
+							<h1>Create Poll</h1>
+							<p className={classes.text}>
+								Complete below fields to create a poll
+							</p>
+						</div>
+						<div>
+							<TextField
+								className={classes.questionInput}
+								id="outlined-multiline-static"
+								label="Poll question"
+								placeholder="What's your favorite movie?"
+								multiline
+								rows={4}
+								variant="outlined"
+								onChange={(e) => setQuestion(e.target.value)}
+							/>
+							{options.map((option, idx) => {
+								return (
+									<div
+										key={idx}
+										id={idx}
+										style={{
+											display: "flex",
+											justifyContent: "center",
+											alignItems: "center",
+										}}
+									>
+										<TextField
+											className={classes.option}
+											id="outlined-basic"
+											label={`Option ${idx + 1}`}
+											variant="outlined"
+											placeholder="option"
+											value={option}
+											onChange={(e) => {
+												let tempArr = [...options];
+												tempArr[idx] = e.target.value;
+												setOptions(tempArr);
+											}}
+										/>
+										{options.length > 2 ? (
+											<DeleteForeverIcon
+												onClick={handleDelete}
+												className={classes.deleteBtn}
+											/>
+										) : null}
+									</div>
+								);
+							})}
+							<Fab
+								color="secondary"
+								aria-label="add"
+								className={classes.margin}
+								onClick={handleAddOption}
 							>
-								<TextField
-									className={classes.option}
-									id="outlined-basic"
-									label={`Option ${idx + 1}`}
-									variant="outlined"
-									placeholder="option"
-									value={option}
-									onChange={(e) => {
-										let tempArr = [...options];
-										tempArr[idx] = e.target.value;
-										setOptions(tempArr);
-									}}
-								/>
-								{options.length > 2 ? (
-									<DeleteForeverIcon
-										onClick={handleDelete}
-										className={classes.deleteBtn}
-									/>
-								) : null}
-							</div>
-						);
-					})}
-					<Fab
-						color="secondary"
-						aria-label="add"
-						className={classes.margin}
-						onClick={handleAddOption}
-					>
-						<AddIcon />
-					</Fab>
-					<br />
-					<Button
-						variant="contained"
-						color="primary"
-						className={classes.createBtn}
-						onClick={handleCreate}
-						disabled={disable}
-					>
-						Create Your Poll
-					</Button>
-				</div>
-			</Container>
-			<Footer />
+								<AddIcon />
+							</Fab>
+							<br />
+							<Button
+								variant="contained"
+								color="primary"
+								className={classes.createBtn}
+								onClick={handleCreate}
+								disabled={disable}
+							>
+								Create Your Poll
+							</Button>
+						</div>
+					</Container>
+					<Footer />
+				</>
+			)}
 		</>
 	);
 }
