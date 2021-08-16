@@ -12,6 +12,8 @@ code {
         monospace;
 }
 
+/* ***************************************************** */
+
 /* header */
 
 .header {
@@ -23,14 +25,41 @@ code {
     background-color: antiquewhite;
 }
 
-.title{
+.title {
     margin: 0;
     padding: 0;
 }
-.fa-bolt{
+
+.fa-bolt {
     margin-right: 5px;
 }
 
-.tagline{
+.tagline {
     font-size: 18px;
+}
+
+/* ***************************************************** */
+
+/* Footer */
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 100px 0 20px 0;
+}
+
+.footer-text{
+    font-family: cursive;
+    color: gray
+}
+
+.profile{
+    text-decoration: none;
+    color: gray;
+    transition: color .3s ease-in-out;
+}
+
+.profile:hover{
+    color: rgb(43, 43, 43);
 }
