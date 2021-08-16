@@ -49,17 +49,17 @@ code {
     margin: 100px 0 20px 0;
 }
 
-.footer-text{
+.footer-text {
     font-family: cursive;
-    color: gray
+    color: gray;
 }
 
-.profile{
+.profile {
     text-decoration: none;
     color: gray;
     transition: color .3s ease-in-out;
 }
 
-.profile:hover{
+.profile:hover {
     color: rgb(43, 43, 43);
 }

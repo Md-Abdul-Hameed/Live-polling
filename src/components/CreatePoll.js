@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { green } from "@material-ui/core/colors";
 import { database } from "../firebase/firebaseConfig";
 import { Button, Container, Fab, TextField } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
@@ -12,6 +11,9 @@ import Header from "./Header";
 const useStyles = makeStyles((theme) => ({
 	maxWidthSm: {
 		maxWidth: "70%",
+	},
+	text: {
+		fontSize: "20px",
 	},
 	questionInput: {
 		width: "100%",
@@ -33,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
 	createBtn: {
 		marginTop: theme.spacing(5),
 		padding: "15px",
+		"&:disabled": {
+			cursor: "not-allowed",
+		},
 	},
 }));
 
@@ -109,8 +114,8 @@ export default function CreatePoll(props) {
 			<Header />
 			<Container maxWidth="sm" className={classes.maxWidthSm}>
 				<div>
-					<h3>Create Poll</h3>
-					<h5>Complete below fields to create a poll</h5>
+					<h1>Create Poll</h1>
+					<p className={classes.text}>Complete below fields to create a poll</p>
 				</div>
 				<div>
 					<TextField
