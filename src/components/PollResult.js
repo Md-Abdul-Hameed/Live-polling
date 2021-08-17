@@ -124,7 +124,9 @@ export default function PollResult(props) {
 											<h1 className={classes.percentage}>
 												{totalVotes == 0
 													? 0 + "%"
-													: (option.votes / totalVotes) * 100 + "%"}
+													: Math.round((option.votes / totalVotes) * 100 * 10) /
+															10 +
+													  "%"}
 											</h1>
 										) : (
 											<h1
@@ -133,7 +135,9 @@ export default function PollResult(props) {
 											>
 												{totalVotes == 0
 													? 0 + "%"
-													: (option.votes / totalVotes) * 100 + "%"}
+													: Math.round((option.votes / totalVotes) * 100 * 10) /
+															10 +
+													  "%"}
 											</h1>
 										)}
 										<h2>{option.optionName}</h2>
