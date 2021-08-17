@@ -42,6 +42,7 @@ const useStyles = makeStyles(() => ({
 		background: "transparent",
 		backgroundColor: "#41eb3b",
 		height: "50px",
+        fontSize:"16px",
 		minWidth: "150px",
 		padding: "10px",
 		borderRadius: "6px",
