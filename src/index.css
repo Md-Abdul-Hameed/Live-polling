@@ -9,7 +9,7 @@ body {
         sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #fafcfc;
+    background-color: #eef1f5c0;
 }
 
 code {
@@ -41,6 +41,12 @@ code {
 
 .tagline {
     font-size: 18px;
+}
+
+.top-strip {
+    width: 100%;
+    height: 8px;
+    background-color: aqua;
 }
 
 /* ***************************************************** */
