@@ -72,7 +72,7 @@ export default function CreatePoll(props) {
 			console.log(oldPollIds);
 			localStorage.setItem("pollIds", JSON.stringify(oldPollIds));
 			setDisable(false);
-			props.history.push(`/poll/${pollId}`);
+			props.history.push(`/new/${pollId}`);
 		} catch (err) {
 			console.log("Error :", err);
 		}
@@ -114,23 +114,51 @@ export default function CreatePoll(props) {
 
 	setTimeout(() => {
 		setLoading(false);
-	}, 3000);
+	}, 1400);
 
 	const classes = useStyles();
 	return (
 		<>
 			{loading ? (
 				<>
-					<Skeleton variant="rect" width="100%" height={250} marginTop="0px" />
+					<Skeleton
+						variant="rect"
+						width="100%"
+						height={250}
+						animation="wave"
+						marginTop="0px"
+						style={{ backgroundColor: "#edf2f7" }}
+					/>
 					<div style={{ maxWidth: "70%", margin: "0 auto" }}>
 						<Skeleton
 							height={50}
-							style={{ width: "300px", marginTop: "30px" }}
+							animation="wave"
+							style={{
+								width: "300px",
+								backgroundColor: "#edf2f7",
+								marginTop: "30px",
+							}}
 						/>
-						<Skeleton height={30} style={{ width: "500px" }} />
-						<Skeleton height={150} style={{ margin: "0 auto" }} />
-						<Skeleton height={80} style={{ margin: "0 auto" }} />
-						<Skeleton height={80} style={{ margin: "0 auto" }} />
+						<Skeleton
+							animation="wave"
+							height={30}
+							style={{ width: "500px", backgroundColor: "#edf2f7" }}
+						/>
+						<Skeleton
+							animation="wave"
+							height={150}
+							style={{ margin: "0 auto", backgroundColor: "#edf2f7" }}
+						/>
+						<Skeleton
+							animation="wave"
+							height={80}
+							style={{ margin: "0 auto", backgroundColor: "#edf2f7" }}
+						/>
+						<Skeleton
+							animation="wave"
+							height={80}
+							style={{ margin: "0 auto", backgroundColor: "#edf2f7" }}
+						/>
 					</div>
 				</>
 			) : (

@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -62,4 +66,18 @@ code {
 
 .profile:hover {
     color: rgb(59, 59, 59);
+}
+
+/* ***************************************************** */
+
+/* poll page */
+
+.poll-page {
+    background: rgb(255, 241, 186);
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
 }
