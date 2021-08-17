@@ -3,7 +3,7 @@ import { useState } from "react";
 import { database } from "../firebase/firebaseConfig";
 import Header from "./Header";
 import Footer from "./Footer";
-import { makeStyles } from "@material-ui/core";
+import { LinearProgress, makeStyles } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -78,70 +78,80 @@ export default function PollResult(props) {
 		setLoading(false);
 	}, 1400);
 
-  return (
-    <>
-      {loading ? (
-        <>
-          <Skeleton
-            animation="wave"
-            variant="rect"
-            width="100%"
-            height={240}
-            marginTop="0px"
-            style={{ backgroundColor: "#edf2f7" }}
-          />
-          <div style={{ maxWidth: "50%", margin: "50px auto" }}>
-            <Skeleton
-              animation="wave"
-              height={100}
-              style={{ backgroundColor: "#edf2f7" }}
-            />
-            <Skeleton
-              animation="wave"
-              height={180}
-              style={{ margin: "0 auto", backgroundColor: "#edf2f7" }}
-            />
-            <Skeleton
-              animation="wave"
-              height={180}
-              style={{
-                backgroundColor: "#edf2f7",
-                margin: "0 auto",
-              }}
-            />
-          </div>
-        </>
-      ) : (
-        <>
-          <Header />
-          <div className={classes.parent}>
-            <div style={{ width: "50%", minWidth: "340px" }}>
-              <h1 className={classes.question}>{question}</h1>
-              {eachOptionVotes.map((option, id) => {
-                return (
-                  <div key={id} className={classes.option}>
-                    {id == 0 ? (
-                      <h1 className={classes.percentage}>
-						  {totalVotes == 0  ? 0 +"%":(Math.round(((option.votes / totalVotes) * 100 )*10)/10) + "%" }
-                      </h1>
-                    ) : (
-                      <h1
-                        className={classes.percentage}
-                        style={{ color: "#c2ffd3" }}
-                      >
-                        {totalVotes == 0  ? 0 +"%":(Math.round(((option.votes / totalVotes) * 100 )*10)/10)+ "%" }
-                      </h1>
-                    )}
-                    <h2>{option.optionName}</h2>
-					<LinearDeterminate 
-					progress = {(Math.round(((option.votes / totalVotes) * 100 )*10)/10)}
-					></LinearDeterminate>
-                    <span>votes : {option.votes}</span>
-                  </div>
-                );
-              })}
-            </div>
-            {/* <div style={{display:"flex",flexDirection:"column",padding:"5rem"}}>
+	return (
+		<>
+			{loading ? (
+				<>
+					<Skeleton
+						animation="wave"
+						variant="rect"
+						width="100%"
+						height={240}
+						marginTop="0px"
+						style={{ backgroundColor: "#edf2f7" }}
+					/>
+					<div style={{ maxWidth: "50%", margin: "50px auto" }}>
+						<Skeleton
+							animation="wave"
+							height={100}
+							style={{ backgroundColor: "#edf2f7" }}
+						/>
+						<Skeleton
+							animation="wave"
+							height={180}
+							style={{ margin: "0 auto", backgroundColor: "#edf2f7" }}
+						/>
+						<Skeleton
+							animation="wave"
+							height={180}
+							style={{
+								backgroundColor: "#edf2f7",
+								margin: "0 auto",
+							}}
+						/>
+					</div>
+				</>
+			) : (
+				<>
+					<Header />
+					<div className={classes.parent}>
+						<div style={{ width: "50%", minWidth: "340px" }}>
+							<h1 className={classes.question}>{question}</h1>
+							{eachOptionVotes.map((option, id) => {
+								return (
+									<div key={id} className={classes.option}>
+										{id == 0 ? (
+											<h1 className={classes.percentage}>
+												{totalVotes == 0
+													? 0 + "%"
+													: Math.round((option.votes / totalVotes) * 100 * 10) /
+															10 +
+													  "%"}
+											</h1>
+										) : (
+											<h1
+												className={classes.percentage}
+												style={{ color: "#c2ffd3" }}
+											>
+												{totalVotes == 0
+													? 0 + "%"
+													: Math.round((option.votes / totalVotes) * 100 * 10) /
+															10 +
+													  "%"}
+											</h1>
+										)}
+										<h2>{option.optionName}</h2>
+										<LinearDeterminate
+											progress={
+												Math.round((option.votes / totalVotes) * 100 * 10) / 10
+											}
+										></LinearDeterminate>
+										<span>votes : {option.votes}</span>
+									</div>
+								);
+							})}
+						</div>
+						{/* <div style={{display:"flex",flexDirection:"column",padding:"5rem"}}>
 						<h3 style={{margin:"0px"}}>Total Votes: {totalVotes}</h3>
 						<h5>You voted: {options[myVote]}</h5>
 					</div> */}
@@ -177,94 +187,109 @@ export default function PollResult(props) {
 }
 
 function SimpleCard(props) {
-  const useStyles = makeStyles({
-    root: {
-      minWidth: 275,
-      height: "50%",
-    },
-    bullet: {
-      display: "inline-block",
-      margin: "0 2px",
-      transform: "scale(0.8)",
-    },
-    title: {
-      fontSize: 16,
-	  fontWeight:"bold",
-    },
-    pos: {
-      marginBottom: 12,
-    },
-  });
-
-  const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
-  return (
-    <Card className={classes.root}>
-      <CardContent>
-        <Typography
-          className={classes.title}
-          color="textSecondary"
-          gutterBottom
-        >
-          Total Votes
-        </Typography>
-        <Typography variant="h5" component="h2" style={{fontWeight:"bold"}}>
-          {props.totalVotes}
-        </Typography>
-		
-        
-      </CardContent>
-	  <div>
-	  <Typography
-          className={classes.title}
-          color="textSecondary"
-          gutterBottom
-		  style={{paddingLeft:"15px"}}
-        >
-          Share
-        </Typography>
-	  </div>
-      <CardActions>
-	  
-        <Button  startIcon={<WhatsAppIcon/> } iconSize="large" variant = "contained" style={{backgroundColor:"#41eb3b",textTransform:"lowercase",color:"white",}} >Share On Whatsapp</Button>
-      </CardActions>
-    </Card>
-  );
-}
-
-
-
-
-function LinearDeterminate(props) {
-
 	const useStyles = makeStyles({
 		root: {
-		  width: '100%',
+			minWidth: 275,
+			height: "50%",
 		},
-	  });
-  const classes = useStyles();
-  const [progress, setProgress] = React.useState(0);
+		bullet: {
+			display: "inline-block",
+			margin: "0 2px",
+			transform: "scale(0.8)",
+		},
+		title: {
+			fontSize: 16,
+			fontWeight: "bold",
+		},
+		pos: {
+			marginBottom: 12,
+		},
+	});
 
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((oldProgress) => {
-        if (oldProgress === 100) {
-          return 0;
-        }
-        const diff = Math.random() * 10;
-        return Math.min(oldProgress + diff, 100);
-      });
-    }, 500);
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
-
-  return (
-    <div className={classes.root}>
-      <LinearProgress variant="determinate" value={props.progress} />
-    </div>
-  );
+	const classes = useStyles();
+	const bull = <span className={classes.bullet}>•</span>;
+	return (
+		<Card className={classes.root}>
+			<CardContent>
+				<Typography
+					className={classes.title}
+					color="textSecondary"
+					gutterBottom
+				>
+					Total Votes
+				</Typography>
+				<Typography variant="h5" component="h2" style={{ fontWeight: "bold" }}>
+					{props.totalVotes}
+				</Typography>
+			</CardContent>
+			<div>
+				<Typography
+					className={classes.title}
+					color="textSecondary"
+					gutterBottom
+					style={{ paddingLeft: "15px" }}
+				>
+					Share
+				</Typography>
+			</div>
+			<CardActions>
+				<Button
+					startIcon={<WhatsAppIcon />}
+					iconSize="large"
+					variant="contained"
+					style={{
+						backgroundColor: "#41eb3b",
+						textTransform: "lowercase",
+						color: "white",
+					}}
+				>
+					Share On Whatsapp
+				</Button>
+			</CardActions>
+		</Card>
+	);
 }
 
+function LinearDeterminate(props) {
+	const useStyles = makeStyles({
+		root: {
+			width: "100%",
+			color: "aqua",
+		},
+		colorPrimary: {
+			backgroundColor: "green",
+		},
+	});
+	const classes = useStyles();
+	const [progress, setProgress] = React.useState(0);
+
+	React.useEffect(() => {
+		const timer = setInterval(() => {
+			setProgress((oldProgress) => {
+				if (oldProgress === 100) {
+					return 0;
+				}
+				const diff = Math.random() * 10;
+				return Math.min(oldProgress + diff, 100);
+			});
+		}, 99999500);
+
+		return () => {
+			clearInterval(timer);
+		};
+	}, []);
+
+	return (
+		<div className={classes.root}>
+			<LinearProgress
+				variant="determinate"
+				value={props.progress}
+				style={{
+					borderRadius: "20px",
+					height: "10px",
+					backgroundColor: "#ddd",
+				}}
+			/>
+		</div>
+	);
+}
