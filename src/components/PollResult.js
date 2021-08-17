@@ -124,7 +124,7 @@ export default function PollResult(props) {
 						})}
 					</div>
 					<div>
-						<h5>Total Votes : {totalVotes}</h5>
+						<h5>Total Votes: {totalVotes}</h5>
 						<h5>You voted: {options[myVote]}</h5>
 					</div>
 					<Footer />
