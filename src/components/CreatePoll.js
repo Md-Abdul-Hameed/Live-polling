@@ -25,10 +25,9 @@ const useStyles = makeStyles((theme) => ({
 
 		"&:hover": {
 			boxShadow: "none",
-			// border:"3px solid green"
 		},
 		"&:focus": {
-			border: "3px solid green",
+			outline: "#4CAF50 solid 10px",
 		},
 		padding: "20px",
 		size: "2rem",
@@ -58,9 +57,12 @@ const useStyles = makeStyles((theme) => ({
 	createBtn: {
 		marginTop: theme.spacing(5),
 		padding: "15px",
-		"&:disabled": {
-			cursor: "not-allowed",
+		"&:hover": {
+			backgroundColor: "rgba(104,211,145,155)",
 		},
+		backgroundColor: "rgba(104,211,145,155)",
+		boxShadow: "0 10px 20px -8px rgba(0, 0, 0,.7)",
+		color: "white",
 	},
 }));
 
@@ -69,6 +71,10 @@ export default function CreatePoll(props) {
 	const [options, setOptions] = useState(["", ""]);
 	const [disable, setDisable] = useState(true);
 	const [loading, setLoading] = useState(true);
+
+	const handleAddOption = () => {
+		setOptions([...options, ""]);
+	};
 
 	const handleCreate = async () => {
 		setDisable(true);
@@ -98,10 +104,6 @@ export default function CreatePoll(props) {
 		} catch (err) {
 			console.log("Error :", err);
 		}
-	};
-
-	const handleAddOption = () => {
-		setOptions([...options, ""]);
 	};
 
 	const handleDelete = (e) => {
