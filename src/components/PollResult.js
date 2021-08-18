@@ -11,6 +11,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { Button } from "@material-ui/core";
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 const useStyles = makeStyles(() => ({
   question: {
@@ -22,7 +23,7 @@ const useStyles = makeStyles(() => ({
     padding: "0.5rem",
     position: "relative",
     backgroundColor: "#fff",
-  },
+},
   percentage: {
     position: "absolute",
     right: "1em",
@@ -133,6 +134,9 @@ export default function PollResult(props) {
                       </h1>
                     )}
                     <h2>{option.optionName}</h2>
+					<LinearDeterminate 
+					progress = {(Math.round(((option.votes / totalVotes) * 100 )*10)/10)}
+					></LinearDeterminate>
                     <span>votes : {option.votes}</span>
                   </div>
                 );
@@ -168,7 +172,7 @@ function SimpleCard(props) {
     },
     title: {
       fontSize: 16,
-	  fontWeight:"bold"
+	  fontWeight:"bold",
     },
     pos: {
       marginBottom: 12,
@@ -190,11 +194,60 @@ function SimpleCard(props) {
         <Typography variant="h5" component="h2" style={{fontWeight:"bold"}}>
           {props.totalVotes}
         </Typography>
+		
         
       </CardContent>
+	  <div>
+	  <Typography
+          className={classes.title}
+          color="textSecondary"
+          gutterBottom
+		  style={{paddingLeft:"15px"}}
+        >
+          Share
+        </Typography>
+	  </div>
       <CardActions>
+	  
         <Button  startIcon={<WhatsAppIcon/> } iconSize="large" variant = "contained" style={{backgroundColor:"#41eb3b",textTransform:"lowercase",color:"white",}} >Share On Whatsapp</Button>
       </CardActions>
     </Card>
   );
 }
+
+
+
+
+function LinearDeterminate(props) {
+
+	const useStyles = makeStyles({
+		root: {
+		  width: '100%',
+		},
+	  });
+  const classes = useStyles();
+  const [progress, setProgress] = React.useState(0);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((oldProgress) => {
+        if (oldProgress === 100) {
+          return 0;
+        }
+        const diff = Math.random() * 10;
+        return Math.min(oldProgress + diff, 100);
+      });
+    }, 500);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  return (
+    <div className={classes.root}>
+      <LinearProgress variant="determinate" value={props.progress} />
+    </div>
+  );
+}
+
