@@ -9,6 +9,7 @@ body {
         sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: #fafcfc;
 }
 
 code {
@@ -26,7 +27,7 @@ code {
     align-items: center;
     flex-direction: column;
     height: 30vh;
-    background-color: antiquewhite;
+    background-color: white;
 }
 
 .title {

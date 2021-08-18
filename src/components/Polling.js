@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
 		fontSize: "18px",
 		padding: "25px",
 		margin: "15px",
-		backgroundColor: "#edf2f7",
+		backgroundColor: "#fff",
 		cursor: "pointer",
 		borderRadius: "10px",
 	},
@@ -179,7 +179,7 @@ export default function Polling(props) {
 												key={id}
 												id={id}
 												style={{
-													boxShadow: " 0px 0px 12px 0px rgba(120,120,120,1)",
+													boxShadow: " 0px 0px 12px 0px #ddd",
 												}}
 												// style={{border:"3px solid black"}}
 												className={classes.option}
