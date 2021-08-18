@@ -122,14 +122,14 @@ export default function PollResult(props) {
                   <div key={id} className={classes.option}>
                     {id == 0 ? (
                       <h1 className={classes.percentage}>
-						  {totalVotes == 0  ? 0 +"%":(option.votes / totalVotes) * 100 + "%" }
+						  {totalVotes == 0  ? 0 +"%":(Math.round(((option.votes / totalVotes) * 100 )*10)/10) + "%" }
                       </h1>
                     ) : (
                       <h1
                         className={classes.percentage}
                         style={{ color: "#c2ffd3" }}
                       >
-                        {totalVotes == 0  ? 0 +"%":(option.votes / totalVotes) * 100 + "%" }
+                        {totalVotes == 0  ? 0 +"%":(Math.round(((option.votes / totalVotes) * 100 )*10)/10)+ "%" }
                       </h1>
                     )}
                     <h2>{option.optionName}</h2>
