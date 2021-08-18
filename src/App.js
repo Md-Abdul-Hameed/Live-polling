@@ -6,20 +6,22 @@ import PollResult from "./components/PollResult";
 import MyPolls from "./components/MyPolls";
 import ErrorPage from "./components/Error";
 import PollInfo from "./components/PollInfo";
-
+import { AnimatePresence } from "framer-motion";
 function App() {
-	return (
-		<BrowserRouter>
-			<Switch>
-				<Route path="/poll/result/:id" exact component={PollResult} />
-				<Route path="/poll/:id" exact component={Polling} />
-				<Route path="/new/:id" component={PollInfo} />
-				<Route path="/mypolls" exact component={MyPolls} />
-				<Route path="/" exact component={CreatePoll} />
-				<Route component={ErrorPage} />
-			</Switch>
-		</BrowserRouter>
-	);
+  return (
+    <AnimatePresence initial={false} exitBeforeEnter>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/poll/result/:id" exact component={PollResult} />
+          <Route path="/poll/:id" exact component={Polling} />
+          <Route path="/new/:id" component={PollInfo} />
+          <Route path="/mypolls" exact component={MyPolls} />
+          <Route path="/" exact component={CreatePoll} />
+          <Route component={ErrorPage} />
+        </Switch>
+      </BrowserRouter>
+    </AnimatePresence>
+  );
 }
 
 export default App;
