@@ -4,13 +4,11 @@ import Footer from "./Footer";
 import Header from "./Header";
 
 export default function MyPolls() {
- 
-  return (
-    <>
-      <Header />
+	return (
+		<>
+			<Header />
 
-      
-      <Footer />
-    </>
-  );
+			<Footer />
+		</>
+	);
 }

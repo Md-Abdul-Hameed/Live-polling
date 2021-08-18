@@ -10,74 +10,73 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { Button } from "@material-ui/core";
-import WhatsAppIcon from '@material-ui/icons/WhatsApp';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 
 const useStyles = makeStyles(() => ({
-  question: {
-    padding: "1rem",
-  },
-  option: {
-    margin: "1rem",
-    borderRadius: "6px",
-    padding: "0.5rem",
-    position: "relative",
-    backgroundColor: "#fff",
-},
-  percentage: {
-    position: "absolute",
-    right: "1em",
-    color: "#41eb3b",
-  },
-  parent: {
-    display: "flex",
-    backgroundColor: "#faf8f5",
-    flexWrap: "wrap",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-  },
+	question: {
+		padding: "1rem",
+	},
+	option: {
+		margin: "1rem",
+		borderRadius: "6px",
+		padding: "0.5rem",
+		position: "relative",
+		backgroundColor: "#fff",
+	},
+	percentage: {
+		position: "absolute",
+		right: "1em",
+		color: "#41eb3b",
+	},
+	parent: {
+		display: "flex",
+		// backgroundColor: "#faf8f5",
+		flexWrap: "wrap",
+		justifyContent: "space-evenly",
+		alignItems: "center",
+	},
 }));
 
 export default function PollResult(props) {
-  const [question, setQuestion] = useState("");
-  const [options, setOptions] = useState([]);
-  const [totalVotes, setTotalVotes] = useState(0);
-  const [eachOptionVotes, setEachOptionVotes] = useState([]);
-  const [myVote, setMyVote] = useState();
-  const [loading, setLoading] = useState(true);
-  const {
-    match: {
-      params: { id },
-    },
-  } = props;
+	const [question, setQuestion] = useState("");
+	const [options, setOptions] = useState([]);
+	const [totalVotes, setTotalVotes] = useState(0);
+	const [eachOptionVotes, setEachOptionVotes] = useState([]);
+	const [myVote, setMyVote] = useState();
+	const [loading, setLoading] = useState(true);
+	const {
+		match: {
+			params: { id },
+		},
+	} = props;
 
-  useEffect(() => {
-	  console.log("useeffect")
-    database.polls.doc(id).onSnapshot((doc) => {
-      let data = doc.data();
-      setTotalVotes(data.totalVotes);
-      setQuestion(data.question);
-      setOptions(data.options);
-      let sortedArr = data.votesToEachOption.sort((a, b) => {
-        return b.votes - a.votes;
-      });
-      setEachOptionVotes(sortedArr);
-    });
-    let existing = localStorage.getItem("votes");
-    let oldVotes = existing ? JSON.parse(existing) : null;
-    if (oldVotes !== null) {
-      oldVotes.forEach((voteObj) => {
-        if (voteObj.pollID === id) {
-          setMyVote(voteObj.optionIdx);
-        }
-      });
-    }
-  }, []);
-  const classes = useStyles();
+	useEffect(() => {
+		console.log("useeffect");
+		database.polls.doc(id).onSnapshot((doc) => {
+			let data = doc.data();
+			setTotalVotes(data.totalVotes);
+			setQuestion(data.question);
+			setOptions(data.options);
+			let sortedArr = data.votesToEachOption.sort((a, b) => {
+				return b.votes - a.votes;
+			});
+			setEachOptionVotes(sortedArr);
+		});
+		let existing = localStorage.getItem("votes");
+		let oldVotes = existing ? JSON.parse(existing) : null;
+		if (oldVotes !== null) {
+			oldVotes.forEach((voteObj) => {
+				if (voteObj.pollID === id) {
+					setMyVote(voteObj.optionIdx);
+				}
+			});
+		}
+	}, []);
+	const classes = useStyles();
 
-  setTimeout(() => {
-    setLoading(false);
-  }, 1400);
+	setTimeout(() => {
+		setLoading(false);
+	}, 1400);
 
   return (
     <>
@@ -146,17 +145,35 @@ export default function PollResult(props) {
 						<h3 style={{margin:"0px"}}>Total Votes: {totalVotes}</h3>
 						<h5>You voted: {options[myVote]}</h5>
 					</div> */}
-            <div>
-			{options[myVote]!=null  ? <h4 style={{backgroundColor:"rgba(190,227,248,255)",padding:"4px",borderRadius:"5px",textAlign:"center"}}>You Voted : {options[myVote]}</h4>:
-			<Button variant = "outlined" color="secondary" onClick={props.history.goBack}>Submit your vote</Button>}
-              <SimpleCard totalVotes={totalVotes}></SimpleCard>
-            </div>
-          </div>
-          <Footer />
-        </>
-      )}
-    </>
-  );
+						<div>
+							{options[myVote] != null ? (
+								<h4
+									style={{
+										backgroundColor: "rgba(190,227,248,255)",
+										padding: "4px",
+										borderRadius: "5px",
+										textAlign: "center",
+									}}
+								>
+									You Voted : {options[myVote]}
+								</h4>
+							) : (
+								<Button
+									variant="outlined"
+									color="secondary"
+									onClick={props.history.goBack}
+								>
+									Submit your vote
+								</Button>
+							)}
+							<SimpleCard totalVotes={totalVotes}></SimpleCard>
+						</div>
+					</div>
+					<Footer />
+				</>
+			)}
+		</>
+	);
 }
 
 function SimpleCard(props) {
