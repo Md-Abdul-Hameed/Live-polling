@@ -11,6 +11,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { Button } from "@material-ui/core";
 import WhatsAppIcon from "@material-ui/icons/WhatsApp";
+import { LinearProgress } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
 	question: {
