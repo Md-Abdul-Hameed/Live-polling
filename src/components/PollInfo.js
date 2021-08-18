@@ -13,7 +13,8 @@ import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: "50%",
+    minWidth: "300px",
+    maxWidth:"50%",
     margin: "100px auto",
     boxShadow:
       "0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -2px rgb(0 0 0 / 5%)",
@@ -32,6 +33,7 @@ const useStyles = makeStyles({
     fontSize: "16px",
     color: "#4a5568",
     margin: "2rem",
+    overflowX:"hidden"
   },
   pollBtn: {
     border: "none",
@@ -143,14 +145,15 @@ export default function PollInfo(props) {
 
 function ActionAlerts() {
   const useStyles = makeStyles((theme) => ({
-    root:{
-		width:"260px",
-		position:"absolute",
-		top:"18px",
-		backgroundColor:"white",
-		left:"calc((100% - 260px)/2)",
-		boxShadow:"0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -2px rgb(0 0 0 / 5%)",
-	}
+    root: {
+      width: "260px",
+      position: "absolute",
+      top: "18px",
+      backgroundColor: "white",
+      left: "calc((100% - 260px)/2)",
+      boxShadow:
+        "0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -2px rgb(0 0 0 / 5%)",
+    },
   }));
   const classes = useStyles();
 
