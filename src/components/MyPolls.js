@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { database } from "../firebase/firebaseConfig";
+import React from "react";
 import Footer from "./Footer";
 import Header from "./Header";
 
