@@ -53,6 +53,7 @@ const useStyles = makeStyles(() => ({
 			backgroundColor: "#ccc",
 			cursor: "no-drop",
 		},
+		boxShadow:"0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -2px rgb(0 0 0 / 5%)"
 	},
 }));
 
@@ -184,8 +185,8 @@ export default function Polling(props) {
 												id={id}
 												style={{
 													boxShadow: " 0px 0px 12px 0px #ddd",
+													 
 												}}
-												// style={{border:"3px solid black"}}
 												className={classes.option}
 												onClick={(e) => {
 													handleSelect(e);

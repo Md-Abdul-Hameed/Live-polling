@@ -11,7 +11,8 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { Button } from "@material-ui/core";
 import WhatsAppIcon from "@material-ui/icons/WhatsApp";
-import { LinearProgress } from "@material-ui/core";
+import {WhatsappShareButton,TwitterShareButton, WhatsappIcon,TwitterIcon, TelegramIcon, TelegramShareButton, LinkedinIcon, LinkedinShareButton} from "react-share"
+import { motion } from "framer-motion";
 
 const useStyles = makeStyles(() => ({
 	question: {
@@ -23,6 +24,10 @@ const useStyles = makeStyles(() => ({
 		padding: "0.5rem",
 		position: "relative",
 		backgroundColor: "#fff",
+		boxShadow: "3px 6px 13px 1px #ddd",
+		'&:hover':{
+			boxShadow:"none"
+		}
 	},
 	percentage: {
 		position: "absolute",
@@ -120,7 +125,15 @@ export default function PollResult(props) {
 							<h1 className={classes.question}>{question}</h1>
 							{eachOptionVotes.map((option, id) => {
 								return (
-									<div key={id} className={classes.option}>
+									<motion.div key={id} className={classes.option}
+									animate={{ y: 10, opacity: 1 }}
+									transition={{
+									  delay: 1,
+									  when: "afterchildren",
+									  x: { type: "spring", stiffness: 100 },
+									  default: { duration: 2 },
+									}}
+									>
 										{id == 0 ? (
 											<h1 className={classes.percentage}>
 												{totalVotes == 0
@@ -148,7 +161,7 @@ export default function PollResult(props) {
 											}
 										></LinearDeterminate>
 										<span>votes : {option.votes}</span>
-									</div>
+									</motion.div>
 								);
 							})}
 						</div>
@@ -177,7 +190,7 @@ export default function PollResult(props) {
 									Submit your vote
 								</Button>
 							)}
-							<SimpleCard totalVotes={totalVotes}></SimpleCard>
+							<SimpleCard totalVotes={totalVotes} id = {id}></SimpleCard>
 						</div>
 					</div>
 					<Footer />
@@ -205,6 +218,20 @@ function SimpleCard(props) {
 		pos: {
 			marginBottom: 12,
 		},
+		share:{
+			display:"flex",
+			alignItems:"center",
+			height:"2.5rem",
+			backgroundColor:"#25D366",
+			borderRadius:"5px",
+			paddingLeft:"3px",
+			margin:"20px",
+			color:"white",
+			width:"80%",
+			justifyContent:"center",
+			boxShadow: "3px 6px 13px 1px #ddd"
+			
+		}
 	});
 
 	const classes = useStyles();
@@ -233,20 +260,28 @@ function SimpleCard(props) {
 					Share
 				</Typography>
 			</div>
-			<CardActions>
-				<Button
-					startIcon={<WhatsAppIcon />}
-					iconSize="large"
-					variant="contained"
-					style={{
-						backgroundColor: "#41eb3b",
-						textTransform: "lowercase",
-						color: "white",
-					}}
-				>
-					Share On Whatsapp
-				</Button>
-			</CardActions>
+			
+				<div >
+				<div className={classes.share} style={{backgroundColor:"#36B9FF"}} >
+				<TwitterIcon style={{marginRight:"4px"}} size={20}></TwitterIcon>
+				<TwitterShareButton  title="Share poll" url={props.id}>Share on Twitter</TwitterShareButton>
+				</div>
+				<div className={classes.share} >
+				<WhatsappIcon style={{marginRight:"4px"}} size={20}></WhatsappIcon>
+				<WhatsappShareButton 
+				
+				title="Share poll" url={props.id}>
+						Share on whatsapp</WhatsappShareButton>
+				</div>
+				<div className = {classes.share} style={{backgroundColor:"#2CA5E0"}}>
+					<TelegramIcon style={{marginRight:"4px"}} size={20}></TelegramIcon>
+					<TelegramShareButton title="Share poll" url={props.id}>Share on Telegram</TelegramShareButton>
+				</div>
+				<div className = {classes.share}  style={{backgroundColor:"#2B5586"}}>
+					<LinkedinIcon style={{marginRight:"4px"}} size={20}></LinkedinIcon>
+					<LinkedinShareButton title="Share poll" url={props.id}>Share on LinkedIn</LinkedinShareButton>
+				</div>
+				</div>
 		</Card>
 	);
 }
@@ -258,27 +293,12 @@ function LinearDeterminate(props) {
 			color: "aqua",
 		},
 		colorPrimary: {
-			backgroundColor: "green",
+			backgroundColor: "#41eb3b",
 		},
 	});
 	const classes = useStyles();
 	const [progress, setProgress] = React.useState(0);
 
-	React.useEffect(() => {
-		const timer = setInterval(() => {
-			setProgress((oldProgress) => {
-				if (oldProgress === 100) {
-					return 0;
-				}
-				const diff = Math.random() * 10;
-				return Math.min(oldProgress + diff, 100);
-			});
-		}, 99999500);
-
-		return () => {
-			clearInterval(timer);
-		};
-	}, []);
 
 	return (
 		<div className={classes.root}>
@@ -289,6 +309,7 @@ function LinearDeterminate(props) {
 					borderRadius: "20px",
 					height: "10px",
 					backgroundColor: "#ddd",
+					color:"#41eb3b"
 				}}
 			/>
 		</div>

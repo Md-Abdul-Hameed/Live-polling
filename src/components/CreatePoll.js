@@ -15,14 +15,30 @@ const useStyles = makeStyles((theme) => ({
 	},
 	text: {
 		fontSize: "20px",
+		fontWeight:"10",
+		
 	},
 	questionInput: {
 		width: "100%",
+		backgroundColor:"white",
+		borderRadius:"5px",
+		boxShadow: "3px 6px 13px 1px #ddd",
+		'&:hover':{
+			border:"none",
+			boxShadow:"none"
+		}
 	},
 	option: {
 		width: "100%",
 		marginTop: "20px",
 		marginRight: "3px",
+		backgroundColor:"white",
+		borderRadius:"5px",
+		boxShadow: "3px 6px 13px 1px #ddd",
+		'&:hover':{
+			border:"none",
+			boxShadow:"none"
+		}
 	},
 	deleteBtn: {
 		cursor: "pointer",
@@ -41,6 +57,8 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 }));
+
+
 
 export default function CreatePoll(props) {
 	const [question, setQuestion] = useState("");
@@ -215,18 +233,33 @@ export default function CreatePoll(props) {
 									</div>
 								);
 							})}
-							<Fab
+							{/* <Fab
 								color="secondary"
 								aria-label="add"
 								className={classes.margin}
 								onClick={handleAddOption}
 							>
 								<AddIcon />
-							</Fab>
+							</Fab> */}
+							<Button
+								variant="contained"
+								style={{backgroundColor:"rgba(7,10,57,155)",
+								boxShadow: "3px 6px 13px 1px #ddd",
+
+								color:"white"}}
+								className={classes.createBtn}
+								onClick={handleAddOption}
+							>
+								Add Another Option
+							</Button>
+
 							<br />
 							<Button
 								variant="contained"
-								color="primary"
+								style={{backgroundColor:"rgba(104,211,145,155)",
+								boxShadow: "3px 6px 13px 1px #ddd",
+
+								color:"white"}}
 								className={classes.createBtn}
 								onClick={handleCreate}
 								disabled={disable}
