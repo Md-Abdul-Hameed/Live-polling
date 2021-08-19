@@ -64,8 +64,8 @@ const useStyles = makeStyles((theme) => ({
   createBtn: {
     marginTop: theme.spacing(5),
     padding: "15px",
-    "&:disabled": {
-      cursor: "not-allowed",
+    "&:hover": {
+      backgroundColor: "rgba(104,211,145,155)",
     },
     backgroundColor: "rgba(104,211,145,155)",
     boxShadow: "0 10px 20px -8px rgba(0, 0, 0,.7)",
