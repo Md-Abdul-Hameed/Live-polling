@@ -29,13 +29,12 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "white",
     borderRadius: "5px",
     boxShadow: "3px 6px 13px 1px #ddd",
-    
+
     "&:hover": {
       boxShadow: "none",
-      // border:"3px solid green"
     },
     "&:focus": {
-      border: "3px solid green",
+      outline: "#4CAF50 solid 10px",
     },
     padding: "20px",
     size: "2rem",
@@ -51,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
       border: "none",
       boxShadow: "none",
     },
-    padding:"10px"
+    padding: "10px",
   },
   deleteBtn: {
     cursor: "pointer",
@@ -68,9 +67,10 @@ const useStyles = makeStyles((theme) => ({
     "&:disabled": {
       cursor: "not-allowed",
     },
+    backgroundColor: "rgba(104,211,145,155)",
+    boxShadow: "0 10px 20px -8px rgba(0, 0, 0,.7)",
+    color: "white",
   },
-  
- 
 }));
 
 export default function CreatePoll(props) {
@@ -114,7 +114,8 @@ export default function CreatePoll(props) {
   };
 
   const handleDelete = (e) => {
-    let idx = Number(e.target.parentNode.id);
+    let idx = Number(e.target.parentNode.id)
+    
     let tempOptions = [...options];
     let UpdatedOptions = [];
     for (let i = 0; i < tempOptions.length; i++) {
@@ -203,30 +204,6 @@ export default function CreatePoll(props) {
               </p>
             </div>
             <div>
-              {/* <TextField
-                className={classes.questionInput}
-                id="outlined-multiline-static"
-                label="Poll question"
-                placeholder="What's your favorite movie?"
-                multiline
-                rows={4}
-                variant="outlined"
-                onChange={(e) => setQuestion(e.target.value)}
-              /> */}
-              {/* <TextareaAutosize
-                InputProps={{
-                  classes: { notchedOutline: classes.noBorder },
-                }}
-                autoFocus
-                classes={{ notchedOutline: classes.input }}
-                InputProps={{
-                  disableUnderline: true, // <== added this
-                }}
-                className={classes.questionInput}
-                aria-label="Poll Question"
-                minRows={3}
-                placeholder="What's your favourite movie"
-              /> */}
               <TextField
                 variant="standard" // <== changed this
                 margin="normal"
@@ -237,9 +214,8 @@ export default function CreatePoll(props) {
                 fullWidth
                 className={classes.questionInput}
                 InputProps={{
-                  disableUnderline: true, 
-                  style: {fontSize: 20},
-                  
+                  disableUnderline: true,
+                  style: { fontSize: 22 },
                 }}
                 value={question}
                 onChange={(e) => setQuestion(e.target.value)}
@@ -257,14 +233,12 @@ export default function CreatePoll(props) {
                   >
                     <TextField
                       className={classes.option}
-                      
                       variant="standard"
                       placeholder={`Option ${idx + 1}`}
                       value={option}
                       InputProps={{
-                        disableUnderline: true, 
-                        style: {fontSize: 18},
-                        
+                        disableUnderline: true,
+                        style: { fontSize: 20 },
                       }}
                       onChange={(e) => {
                         let tempArr = [...options];
@@ -274,6 +248,8 @@ export default function CreatePoll(props) {
                     />
                     {options.length > 2 ? (
                       <DeleteForeverIcon
+                        id={idx}
+                        
                         onClick={handleDelete}
                         className={classes.deleteBtn}
                       />
@@ -289,29 +265,9 @@ export default function CreatePoll(props) {
               >
                 <AddIcon />
               </Fab>
-              {/* <Button
-                variant="contained"
-                style={{
-                  backgroundColor: "rgba(7,10,57,155)",
-                  boxShadow: "3px 6px 13px 1px #ddd",
-
-                  color: "white",
-                }}
-                className={classes.createBtn}
-                onClick={handleAddOption}
-              >
-                Add Another Option
-              </Button> */}
-
               <br />
               <Button
                 variant="contained"
-                style={{
-                  backgroundColor: "rgba(104,211,145,155)",
-                  boxShadow: "0 10px 20px -8px rgba(0, 0, 0,.7)",
-
-                  color: "white",
-                }}
                 className={classes.createBtn}
                 onClick={handleCreate}
                 disabled={disable}

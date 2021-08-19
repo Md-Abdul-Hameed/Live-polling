@@ -181,7 +181,7 @@ export default function PollResult(props) {
 					</div> */}
             <div>
               {options[myVote] != null ? (
-                <h4
+                <p
                   style={{
                     backgroundColor: "rgba(190,227,248,255)",
                     padding: "4px",
@@ -190,8 +190,9 @@ export default function PollResult(props) {
                     boxShadow: "3px 6px 13px 1px #ddd",
                   }}
                 >
-                  You Voted : {options[myVote]}
-                </h4>
+                  You voted : <span style={{fontWeight:"bold"}}>{options[myVote]}</span>
+                </p>
+
               ) : (
                 <Button
                   variant="outlined"
