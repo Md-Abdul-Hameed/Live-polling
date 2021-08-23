@@ -8,6 +8,9 @@ import AddIcon from "@material-ui/icons/Add";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import Footer from "./Footer";
 import Header from "./Header";
+import { AnimatedList } from "react-animated-list";
+import { motion } from "framer-motion";
+var faker = require("faker");
 
 const useStyles = makeStyles((theme) => ({
 	maxWidthSm: {
@@ -197,6 +200,7 @@ export default function CreatePoll(props) {
 							</p>
 						</div>
 						<div>
+							<AnimatedList animation="zoom">
 							<TextField
 								variant="standard" // <== changed this
 								margin="normal"
@@ -213,10 +217,11 @@ export default function CreatePoll(props) {
 								value={question}
 								onChange={(e) => setQuestion(e.target.value)}
 							/>
-							{options.map((option, idx) => {
+							{options.map((option,idx) => {
 								return (
 									<div
-										key={idx}
+										
+										key={option.id}
 										id={idx}
 										style={{
 											display: "flex",
@@ -246,9 +251,11 @@ export default function CreatePoll(props) {
 												className={classes.deleteBtn}
 											/>
 										) : null}
+									
 									</div>
 								);
 							})}
+							</AnimatedList>
 							<Fab
 								color="secondary"
 								aria-label="add"

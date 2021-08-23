@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import { Skeleton } from "@material-ui/lab";
+import { AnimatedList } from "react-animated-list";
 
 const useStyles = makeStyles(() => ({
 	pollPage: {
@@ -180,6 +181,7 @@ export default function Polling(props) {
 					<div className={classes.pollPage}>
 						<h1 className={classes.pollQuestion}>{question}</h1>
 						<div style={{ width: "100%" }}>
+							<AnimatedList animation="zoom">
 							{options.map((option, id) => {
 								return (
 									<div>
@@ -217,6 +219,7 @@ export default function Polling(props) {
 									</div>
 								);
 							})}
+							</AnimatedList>
 						</div>
 						<button
 							onClick={handlePollSubmit}

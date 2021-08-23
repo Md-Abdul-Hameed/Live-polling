@@ -140,6 +140,7 @@ export default function PollResult(props) {
           <div className={classes.parent}>
             <div style={{ width: "50%", minWidth: "340px" }}>
               <h1 className={classes.question}>{question}</h1>
+                <AnimatedList animation="slide">
                 {[...eachOptionVotes].sort(sort).map((option, id) => {
                   return (
                     <motion.div
@@ -185,6 +186,7 @@ export default function PollResult(props) {
                     </motion.div>
                   );
                 })}
+                </AnimatedList>
             </div>
 			
             <div>
@@ -290,7 +292,7 @@ function SimpleCard(props) {
       <div>
         <div className={classes.share} style={{ backgroundColor: "#36B9FF" }}>
           <TwitterIcon style={{ marginRight: "4px" }} size={20}></TwitterIcon>
-          <TwitterShareButton title="Share poll" url={props.id}>
+          <TwitterShareButton title="Share poll" url={url}>
             Share on Twitter
           </TwitterShareButton>
         </div>
@@ -305,13 +307,13 @@ function SimpleCard(props) {
         </div>
         <div className={classes.share} style={{ backgroundColor: "#2CA5E0" }}>
           <TelegramIcon style={{ marginRight: "4px" }} size={20}></TelegramIcon>
-          <TelegramShareButton title="Share poll" url={props.id}>
+          <TelegramShareButton title="Share poll" url={url}>
             Share on Telegram
           </TelegramShareButton>
         </div>
         <div className={classes.share} style={{ backgroundColor: "#2B5586" }}>
           <LinkedinIcon style={{ marginRight: "4px" }} size={20}></LinkedinIcon>
-          <LinkedinShareButton title="Share poll" url={props.id}>
+          <LinkedinShareButton title="Share poll" url={url}>
             Share on LinkedIn
           </LinkedinShareButton>
         </div>
