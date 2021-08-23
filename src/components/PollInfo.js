@@ -56,7 +56,7 @@ export default function PollInfo(props) {
 	const [isActive, setIsActive] = useState(false);
 
 	const { id } = props.match.params;
-	const link = "localhost:3000/poll/" + id;
+	const link = "https://live-polling.netlify.app/poll/" + id;
 
 	const classes = useStyles();
 
